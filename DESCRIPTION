@@ -1,0 +1,16 @@
+Package: BulletRotations3D
+Type: Package
+Title: 3D Bullet Rotations
+Version: 0.1.0
+Author: Daniel Xiang <daniel_xiang@brown.edu>
+Maintainer: Daniel Xiang <daniel_xiang@brown.edu>
+Description: A package which contains methods for the leveling and rotation of
+    3D images of bullet cartridges. The leveling process involves taking a linear
+    regression over the i and j coordinates and producing a best fit plane, and
+    then we adjust the depth values so that the best fit plane is a level plane. The
+    rotation process involves multiplying coordinates by a rotation matrix, and then
+    bilinearly interpolating the neighboring 4 points of the resulting non integer
+    coordinates.
+License: GPL-2
+LazyData: TRUE
+RoxygenNote: 5.0.1
