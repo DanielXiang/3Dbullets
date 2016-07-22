@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' getNewDepthsApprox gives a 2d array of adjusted depth values where the new best\n#' fit plane is a level plane\n#'\n#' @param image is the original 2d matrix with depth values representing the 3d image\n#' @param plane is data.frame containing a b and c where z = a + bx + cy\n#' @return a 2d matrix with the updated depth values\n#' @examples\n#' getNewDepthsApprox <-\n#' getNewDepthsApprox(matrix(c(1,2,3,4), nrow = 2),\n#' data.frame(a = 1, b = 2, c = 3))\n#'\n#' @export\ngetNewDepthsApprox <- function(image, plane) {\n  a <- plane$a\n  b <- plane$b\n  c <- plane$c\n  size <- nrow(image)\n  halfSize <- size/2\n  iValues <- matrix(rep(c((-halfSize):(halfSize-1)),size), ncol = size, nrow = size)\n  jValues <- matrix(rep(NA,size^2), nrow = size, ncol = size)\n  for (jj in 0:size-1) {\n    jValues[,jj] <- rep(jj - halfSize, size)\n  }\n  size <- nrow(image)\n  rotatedBullet <- image\n  rotatedBullet = image - b*iValues - c*jValues\n  return(rotatedBullet)\n}\n\n\n",
+    "created" : 1469162260069.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3014364548",
+    "id" : "AB2908E",
+    "lastKnownWriteTime" : 1469162038,
+    "last_content_update" : 1469162038,
+    "path" : "~/BulletRotations3D/R/getNewDepthsApprox.R",
+    "project_path" : "R/getNewDepthsApprox.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

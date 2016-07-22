@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' getNewDepths gives a 2d array of adjusted depth values\n#'\n#' @param image is the original 2d matrix with depth values representing the 3d image\n#' @param newDom is a data.frame where the first column ($newCoordi) are the new i coords,\n#' and the second column ($newCoordj) contains the new j coords\n#' @param plane is data.frame containing a b and c where z = a + bx + cy\n#' @param P is the 2d matrix containing shortest distances from each point to plane\n#' @return a 2d matrix with the updated depth values\n#'\n#' @export\ngetNewDepths <- function(image, newDom, plane, P) {\n  print(\"hello\")\n  a <- plane$a\n  b <- plane$b\n  c <- plane$c\n  iMat <- newDom[[1]]\n  jMat <- newDom[[2]]\n  iMat <- iMat - min(iMat[!is.na(iMat)]) + 1\n  jMat <- jMat - min(jMat[!is.na(jMat)]) + 1\n  maxCoord <- max(max(iMat[!is.na(iMat)]), max(jMat[!is.na(jMat)]))\n  size <- maxCoord\n  rotatedBullet <- matrix(rep(NA,size^2), nrow = size)\n  origSize <- nrow(image)\n  for (ii in 1:origSize) {\n    for (jj in 1:origSize) {\n      if (!is.na(image[ii,jj])) {\n        iCoord <- iMat[ii,jj]\n        jCoord <- jMat[ii,jj]\n        if (image[ii,jj] > a + b*ii + c*jj) {\n          rotatedBullet[iCoord,jCoord] <- a + P[ii,jj]\n        } else {\n          rotatedBullet[iCoord,jCoord] <- a - P[ii,jj]\n        }\n      }\n    }\n  }\n  return(rotatedBullet)\n}\n\n\n",
+    "created" : 1469162254540.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "510581693",
+    "id" : "88FFCCEF",
+    "lastKnownWriteTime" : 1469162546,
+    "last_content_update" : 1469162546068,
+    "path" : "~/BulletRotations3D/R/getNewDepths.R",
+    "project_path" : "R/getNewDepths.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

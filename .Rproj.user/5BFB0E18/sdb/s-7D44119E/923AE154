@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#' rotate runs the entire rotation process\n#'\n#' @param x3pFile is the original list vector of data whose first element is the\n#' metadata, and the second element is the 2D array of depth values.\n#' @return the same file, but the 2D array of depth values is now leveled out.\n#'\n#' @export\nrotate <- function(x3pFile) {\n  image <- x3pFile[[2]]\n  small_size <- min(nrow(image), ncol(image))\n  big_size <- max(nrow(image), ncol(image))\n  if (small_size == nrow(image)) {\n    diff <- big_size - small_size\n    margin <- ceiling(diff/2)\n    image <- image[, margin:(margin+small_size-1)]\n  } else {\n    diff <- big_size - small_size\n    margin <- ceiling(diff/2)\n    image <- image[margin:(margin+small_size-1),]\n  }\n  breechFace <- rmFPradius(image)\n  top <- localRemove(breechFace)\n  plane <- getPlane(top)\n  distances <- getShortestDist(image, plane)\n  newDom <- getNewDomain(image, plane)\n  rotatedBullet <- getNewDepths(image, newDom, plane, distances)\n  # comment the above three lines and uncomment the below line if the slant is small\n  #rotatedBullet <- getNewDepthsApprox(image, plane)\n  x3pFile[[2]] <- rotatedBullet\n  minsize <- min(nrow(rotatedBullet), ncol(rotatedBullet))\n  x3pFile[[1]][\"num.lines\"] <- minsize\n  x3pFile[[1]][\"num.pts.line\"] <- minsize\n  return(x3pFile)\n}\n\n\n",
+    "created" : 1469161966350.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3636669293",
+    "id" : "923AE154",
+    "lastKnownWriteTime" : 1469162575,
+    "last_content_update" : 1469162575133,
+    "path" : "~/BulletRotations3D/R/rotate.R",
+    "project_path" : "R/rotate.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
